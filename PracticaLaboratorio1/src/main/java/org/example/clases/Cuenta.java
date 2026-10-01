@@ -10,7 +10,7 @@ public class Cuenta {
     public Cuenta(String titular, Integer ID, Double Saldo) {
         this.Titular = titular;
         this.ID = ID;
-        if (0 <= this.Saldo) {
+        if (Saldo != null && Saldo > 0.0) {
             this.Saldo = Saldo;
         } else {
             this.Saldo = 0.0;
@@ -26,7 +26,7 @@ public class Cuenta {
     //por defecto
     public Cuenta() {
         this.Titular = "Titular";
-        this.ID = 000;
+        this.ID = 0;
         this.Saldo = 0.0;
     }
 

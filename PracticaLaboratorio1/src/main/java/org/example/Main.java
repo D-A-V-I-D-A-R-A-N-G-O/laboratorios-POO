@@ -23,5 +23,6 @@ public class Main {
         cuenta3 = null;
 
         System.gc();
+        System.out.println("Hola como le ha ido el dia de hoy");
     }
 }

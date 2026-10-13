@@ -1,0 +1,82 @@
+classDiagram
+    class Persona {
+        <<abstract>>
+        -String Nombre
+        -int Edad
+        -String NumeroID
+        -String Direccion
+        +saludar()*
+        +obtenerInformacion() String
+    }
+
+    class Cliente {
+        -LocalDate FechaRegistro
+        -String CorreoElectronico
+        +saludar() void
+    }
+
+    class Empleado {
+        -String AreaDeTrabajo
+        +saludar() void
+    }
+
+    class CuentaBancaria {
+        <<abstract>>
+        -String NumeroCuenta
+        -double Saldo
+        -Cliente Titular
+        -List~Transaccion~ historial
+        +depositar(monto: double) void
+        +retirar(monto: double) void
+        +getSaldo() double
+        +getTitular() Cliente
+        +mostrarInformacion() String
+        +calcularCostoMensual()* double
+    }
+
+    class CuentaAhorros {
+        -double tasaInteres
+        -int retirosRealizados
+        -int LIMITE_RETIROS$
+        +aplicarInteres() void
+        +retirar(monto: double) void
+        +resetRetiros() void
+        +calcularCostoMensual() double
+        +mostrarInformacion() String
+    }
+
+    class CuentaCorriente {
+        -double limiteSobregiro
+        +retirar(monto: double) void
+        +calcularCostoMensual() double
+        +mostrarInformacion() String
+    }
+
+    class Transaccion {
+        -LocalDate fecha
+        -String tipo
+        -double monto
+    }
+
+    class Sucursal {
+        -String codigo
+        -String ciudad
+        -List~Empleado~ empleados
+    }
+
+    class GeneradorReporte {
+        +generarReporte(cuenta: CuentaBancaria) String
+    }
+
+    Persona <|-- Cliente : Herencia
+    Persona <|-- Empleado : Herencia
+    CuentaBancaria <|-- CuentaAhorros : Herencia
+    CuentaBancaria <|-- CuentaCorriente : Herencia
+
+    Cliente "1" <-- "0..*" CuentaBancaria : Asociación
+
+    Sucursal "1" o-- "0..*" Empleado : Agregación
+
+    CuentaBancaria "1" *-- "0..*" Transaccion : Composición
+
+    GeneradorReporte ..> CuentaBancaria : Dependencia
